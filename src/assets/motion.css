@@ -1,0 +1,30 @@
+/* Site motion, approved by Maria Nov 24 2026. Five effects, each switched on by a class on <html>
+   (m-progress, m-parallax, m-stagger, m-condense, m-fade) that the <head> script in build.py adds,
+   only for visitors whose device does not ask for reduced motion. motion.js does the scroll work.
+   To turn one effect off site-wide, remove its class from MOTION_CLASSES in build.py. */
+
+/* 1. Reading progress line */
+#m-bar{position:fixed;left:0;top:0;height:5px;width:100%;background:#B8924A;transform-origin:left;transform:scaleX(0);z-index:60;pointer-events:none;display:none}
+html.m-progress #m-bar{display:block}
+
+/* 2. Gentle parallax: the hero artwork is moved by the script */
+.m-par{will-change:transform}
+
+/* 3. Staggered reveals: cards in a row rise in one after another */
+html.m-stagger .m-st{opacity:0;transform:translateY(36px);transition:opacity .8s ease,transform .8s cubic-bezier(.2,.7,.2,1);animation:none!important}
+html.m-stagger .m-st.m-on{opacity:1;transform:none}
+
+/* 4. Menu slims on scroll */
+header nav{transition:padding .35s ease}
+header nav>a:first-child{transition:transform .35s ease;transform-origin:left center}
+header{transition:background .35s ease,box-shadow .35s ease}
+html.m-condense header.m-slim nav{padding-top:6px!important;padding-bottom:6px!important}
+html.m-condense header.m-slim nav>a:first-child{transform:scale(.72)}
+html.m-condense header.m-slim{background:rgba(247,244,238,.99)!important;box-shadow:0 6px 24px rgba(20,48,79,.12)}
+
+/* 5. Soft page fades */
+html.m-fade body{animation:m-in .6s ease-out both}
+html.m-fade body.m-out{opacity:0;transition:opacity .3s ease}
+@keyframes m-in{from{opacity:0}to{opacity:1}}
+
+@media print{#m-bar{display:none!important}.m-st{opacity:1!important;transform:none!important}}

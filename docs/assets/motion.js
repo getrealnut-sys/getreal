@@ -1,6 +1,7 @@
-/* Scroll work for motion-ideas.css. Reads the m-* classes on <html> each frame, so ideas can be switched live. */
+/* Scroll work for motion.css. Does nothing when <html> has no m-* classes (reduced motion). */
 (function () {
   var h = document.documentElement, on = function (c) { return h.classList.contains(c); };
+  if (!/\bm-/.test(h.className)) return;
   var bar = document.createElement('div'); bar.id = 'm-bar'; document.body.appendChild(bar);
   var header = document.querySelector('header');
   var hero = document.querySelector('section');

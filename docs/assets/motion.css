@@ -1,6 +1,7 @@
-/* Motion and scroll ideas for Maria to compare. Not part of the live site until she picks them.
-   Each idea turns on with a class on <html>: m-progress, m-parallax, m-stagger, m-condense, m-fade.
-   motion-ideas.js does the scroll work, so the ideas show in every browser, Safari and phones included. */
+/* Site motion, approved by Maria Nov 24 2026. Five effects, each switched on by a class on <html>
+   (m-progress, m-parallax, m-stagger, m-condense, m-fade) that the <head> script in build.py adds,
+   only for visitors whose device does not ask for reduced motion. motion.js does the scroll work.
+   To turn one effect off site-wide, remove its class from MOTION_CLASSES in build.py. */
 
 /* 1. Reading progress line */
 #m-bar{position:fixed;left:0;top:0;height:5px;width:100%;background:#B8924A;transform-origin:left;transform:scaleX(0);z-index:60;pointer-events:none;display:none}

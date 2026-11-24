@@ -78,11 +78,16 @@ HEAD = '''<!doctype html>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="{{root}}assets/site.css">
+<link rel="stylesheet" href="{{root}}assets/motion.css">
+<script>if(!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches))document.documentElement.className+=' {{motion_classes}}';</script>
 </head>
 <body>
 <div style="{{wrapper_style}}">
 '''
-TAIL = '\n</div>\n</body>\n</html>\n'
+TAIL = '\n</div>\n<script src="{{root}}assets/motion.js"></script>\n</body>\n</html>\n'
+
+# Motion effects in use (see src/assets/motion.css). Remove one to turn it off site-wide.
+MOTION_CLASSES = 'm-progress m-parallax m-stagger m-condense m-fade'
 
 
 def render(body, out, title, description, extra=None):
@@ -97,8 +102,9 @@ def render(body, out, title, description, extra=None):
     vals.update(extra or {})
     canonical = site['site_url'].rstrip('/') + '/' + ('' if out == 'index.html' else out)
     head = fill(HEAD, {'page_title': title, 'description': description, 'canonical': canonical,
-                       'favicon': FAVICON, 'root': root, 'wrapper_style': layout['wrapper_style']})
-    html_out = head + fill(body, vals).strip() + TAIL
+                       'favicon': FAVICON, 'root': root, 'wrapper_style': layout['wrapper_style'],
+                       'motion_classes': MOTION_CLASSES})
+    html_out = head + fill(body, vals).strip() + fill(TAIL, {'root': root})
     path = os.path.join(OUT, out)
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w', encoding='utf-8') as f:
@@ -114,7 +120,8 @@ def build():
     if os.path.isdir(OUT):
         shutil.rmtree(OUT)
     os.makedirs(os.path.join(OUT, 'assets'))
-    shutil.copy(os.path.join(SRC, 'assets', 'site.css'), os.path.join(OUT, 'assets', 'site.css'))
+    for f in os.listdir(os.path.join(SRC, 'assets')):
+        shutil.copy(os.path.join(SRC, 'assets', f), os.path.join(OUT, 'assets', f))
     open(os.path.join(OUT, '.nojekyll'), 'w').close()
 
     guide_cards = Raw(''.join(

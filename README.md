@@ -30,4 +30,6 @@ Adding a guide: add its page to `src/guides/<slug>.html` and an entry to `guides
 
 GitHub Pages → Deploy from a branch → `main`, folder `/docs`.
 
-`src/assets/motion-ideas.css` holds optional motion and scroll ideas that are not used on the site yet.
+## Motion
+
+Five scroll effects are on: a gold reading-progress line, gentle parallax on the hero artwork, staggered card reveals, a menu that slims on scroll, and soft fades between pages. They live in `src/assets/motion.css` and `motion.js`, and are skipped for visitors whose device asks for reduced motion. To turn one off, remove its class from `MOTION_CLASSES` in `build.py`.
