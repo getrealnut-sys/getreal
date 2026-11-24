@@ -1,0 +1,29 @@
+/* Motion and scroll ideas for Maria to compare. Not part of the live site until she picks them.
+   Each idea switches on with a class on <html>: m-progress, m-parallax, m-stagger, m-condense, m-fade.
+   Everything here is off for visitors who ask their device for reduced motion. */
+@keyframes m-fill{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes m-drift{from{transform:translateY(0)}to{transform:translateY(90px)}}
+@keyframes m-condense{to{padding-top:8px;padding-bottom:8px}}
+@keyframes m-shrink{to{transform:scale(.82)}}
+@keyframes m-in{from{opacity:0}to{opacity:1}}
+
+@media (prefers-reduced-motion: no-preference){
+  @supports (animation-timeline: scroll()){
+    /* 1. Reading progress: a fine gold line under the menu fills as you scroll */
+    html.m-progress header{position:sticky}
+    html.m-progress header::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:2px;background:#B8924A;transform-origin:left;animation:m-fill linear both;animation-timeline:scroll(root)}
+
+    /* 2. Gentle parallax: the watercolor artwork drifts a little slower than the words */
+    html.m-parallax section:first-of-type div:has(> svg.art-in){animation:m-drift linear both;animation-timeline:scroll(root);animation-range:0 100vh}
+
+    /* 3. Staggered reveals: cards in a row arrive one after another instead of all at once */
+    html.m-stagger .rv:nth-child(3n+2){animation-range:entry 6% cover 28%}
+    html.m-stagger .rv:nth-child(3n+3){animation-range:entry 12% cover 34%}
+
+    /* 4. Menu settles: the sticky menu slims down once you start reading */
+    html.m-condense header nav{animation:m-condense linear both;animation-timeline:scroll(root);animation-range:0 180px}
+    html.m-condense header nav > a:first-child{transform-origin:left center;animation:m-shrink linear both;animation-timeline:scroll(root);animation-range:0 180px}
+  }
+  /* 5. Soft page changes: a quick fade between pages instead of a hard cut */
+  html.m-fade body{animation:m-in .45s ease-out both}
+}

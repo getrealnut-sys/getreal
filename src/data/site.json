@@ -1,0 +1,9 @@
+{
+  "_booking_note": "PLACEHOLDER. Replace booking_url with the Google Calendar booking page link once it is built, then set booking_url_is_placeholder to false. Every Book your consultation button on Work With Me uses it.",
+  "booking_url": "#book",
+  "booking_url_is_placeholder": true,
+  "email": "getrealnut@gmail.com",
+  "instagram_url": "https://www.instagram.com/getrealnutrition/",
+  "site_url": "https://getrealintegrative.com",
+  "custom_domain": ""
+}

@@ -1,0 +1,42 @@
+body{margin:0;background:#F7F4EE}
+a{color:#1B2F47}a:hover{color:#7C5E26}
+@keyframes rise{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+@keyframes dash{to{stroke-dashoffset:-180}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.5);opacity:.55}}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.045)}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-14px)}}
+@keyframes grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+.hero-in>*{animation:rise 1s cubic-bezier(.2,.7,.2,1) both}
+.hero-in>*:nth-child(2){animation-delay:.12s}.hero-in>*:nth-child(3){animation-delay:.24s}.hero-in>*:nth-child(4){animation-delay:.36s}.hero-in>*:nth-child(5){animation-delay:.48s}.hero-in>*:nth-child(6){animation-delay:.6s}
+.sig{animation:dash 10s linear infinite}
+.pulse{transform-box:fill-box;transform-origin:center;animation:pulse 3.2s ease-in-out infinite}
+.topo{transform-box:fill-box;transform-origin:center;animation:breathe 14s ease-in-out infinite}
+.wash{animation:float 12s ease-in-out infinite}
+.art-in{animation:rise 1.4s .2s cubic-bezier(.2,.7,.2,1) both}
+.lift{transition:transform .35s ease, box-shadow .35s ease}.lift:hover{transform:translateY(-4px);box-shadow:0 18px 40px rgba(20,48,79,.12)}
+@supports (animation-timeline: view()){
+.rv{animation:rise linear both;animation-timeline:view();animation-range:entry 0% cover 22%}
+.rule{transform-origin:left;animation:grow linear both;animation-timeline:view();animation-range:entry 10% cover 30%}
+}
+@media (max-width: 760px){.navlinks{width:100%;flex-wrap:nowrap!important;overflow-x:auto;gap:22px!important;padding-bottom:4px;-webkit-overflow-scrolling:touch;scrollbar-width:none}.navlinks::-webkit-scrollbar{display:none}.navlinks a{white-space:nowrap;flex:0 0 auto}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+
+/* Live-site additions (not in the canvas, which had no browser page around it) */
+html{scroll-behavior:smooth;scroll-padding-top:96px}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+img{max-width:100%}
+a:focus-visible,button:focus-visible{outline:2px solid #B8924A;outline-offset:3px}
+
+/* Print-friendly guides: page content only, colours kept, nothing hidden by scroll animations */
+@media print{
+  @page{margin:16mm 14mm}
+  *{animation:none!important;transition:none!important}
+  .rv,.rule,.hero-in>*,.art-in{opacity:1!important;transform:none!important}
+  html,body{background:#fff!important}
+  body{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  header,footer,button,.no-print{display:none!important}
+  section,article{break-inside:auto}
+  h1,h2,h3{break-after:avoid}
+  table,tr,li,.rv{break-inside:avoid}
+  a{text-decoration:none}
+}
